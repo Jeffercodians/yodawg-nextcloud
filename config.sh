@@ -1,0 +1,2 @@
+SERVICE_FRONTEND="www"
+SERVICE_PORT="$(_get_port "${SERVICE_FRONTEND}")"

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+set -ueo pipefail
+
+# @cmd
+status() {
+	_docker_compose ps
+}
+
+# @cmd
+up() {
+	_docker_compose up -d
+
+	register_ingress
+}
+
+# @cmd
+down() {
+	unregister_ingress ||:
+	_docker_compose down
+}
+
+# @cmd
+register_ingress() {
+	yo http set_service_hostport "${SERVICE_NAME}" "127.0.0.1:${SERVICE_PORT}"
+	for host in ${SERVICE_HOSTNAMES}; do
+		yo http add_service_endpoint "${SERVICE_NAME}" "${host}"
+	done
+	yo http reload
+
+}
+
+# @cmd
+unregister_ingress() {
+	yo http remove_service "${SERVICE_NAME}"
+	yo http reload
+}
+
+# @cmd
+logs() {
+	_docker_compose logs
+}
+
+eval "$(argc --argc-eval "${0}" "${@}")"

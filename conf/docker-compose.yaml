@@ -1,0 +1,23 @@
+services:
+  www:
+    image: 'nextcloud:29'
+    ports:
+      - ${SERVICE_PORT}:80
+    volumes:
+      - ${SERVICE_DATA}/www:/var/www/html
+      - ${SERVICE_DATA}/nextcloud:/var/www/html/data
+    environment:
+      POSTGRES_DB: 'nextcloud'
+      POSTGRES_HOST: 'db'
+      POSTGRES_USER: 'nextcloud'
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      NEXTCLOUD_TRUSTED_DOMAINS: ${SERVICE_HOSTNAMES}
+  db:
+    image: 'postgres:15'
+    environment:
+      POSTGRES_USER: 'nextcloud'
+      POSTGRES_PASSWORD: '8etSoPvVqaoGiV8sK7eo'
+      POSTGRES_DB: 'nextcloud'
+      PGDATA: '/data'
+    volumes:
+      - ${SERVICE_DATA}/db:/data
