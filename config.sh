@@ -1,2 +1,3 @@
 SERVICE_FRONTEND="www"
-SERVICE_PORT="$(_get_port "${SERVICE_FRONTEND}")"
+SERVICE_PORT="$(service::get_port "${SERVICE_FRONTEND}")"
+DB_PASSWORD="$(service::get_password "db")"
