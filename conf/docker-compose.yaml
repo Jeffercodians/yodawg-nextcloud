@@ -10,13 +10,13 @@ services:
       POSTGRES_DB: 'nextcloud'
       POSTGRES_HOST: 'db'
       POSTGRES_USER: 'nextcloud'
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      NEXTCLOUD_TRUSTED_DOMAINS: ${SERVICE_HOSTNAMES}
+      POSTGRES_PASSWORD: '${DB_PASSWORD}'
+      NEXTCLOUD_TRUSTED_DOMAINS: '${SERVICE_HOSTNAMES}'
   db:
     image: 'postgres:15'
     environment:
       POSTGRES_USER: 'nextcloud'
-      POSTGRES_PASSWORD: '8etSoPvVqaoGiV8sK7eo'
+      POSTGRES_PASSWORD: '${DB_PASSWORD}'
       POSTGRES_DB: 'nextcloud'
       PGDATA: '/data'
     volumes:
